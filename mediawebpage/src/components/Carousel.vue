@@ -10,19 +10,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="../../public/banner1.jpg" alt="../../public/xiaolan.jpg">
+                <img src="../assets/banner1.jpg" alt="../../public/xiaolan.jpg">
                 <div class="carousel-caption">
                     ...
                 </div>
             </div>
             <div class="item">
-                <img src="../../public/banner2.jpg" alt="../../public/xiaolan.jpg">
+                <img src="../assets/banner2.jpg" alt="../../public/xiaolan.jpg">
                 <div class="carousel-caption">
                     ...
                 </div>
             </div>
             <div class="item">
-                <img src="../../public/banner3.jpg" alt="../../public/xiaolan.jpg">
+                <img src="../assets/banner3.jpg" alt="../../public/xiaolan.jpg">
                 <div class="carousel-caption">
                     ...
                 </div>

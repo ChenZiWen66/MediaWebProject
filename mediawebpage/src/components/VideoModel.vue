@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <video  id="modelVideo" controls>
-                        <source src="../../public/drink.mp4">
+                        <source src="../assets/drink.mp4">
                         您的浏览器不支持，请升级您的浏览器
                     </video>
                     <p>

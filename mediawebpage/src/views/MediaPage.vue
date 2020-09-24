@@ -9,26 +9,21 @@
         </div>
         <div class="row">
             <div class="col-md-1 advertise">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 innerContent">
                 <carousel/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
-                <media-browser/>
+                <media-browser img-src="./xiaolan.jpg" video-title="视频1" describe="这是视频1的描述"/>
+                <media-browser img-src="./xiaolan.jpg" video-title="视频2" describe="这是视频2的描述"/>
+                <media-browser img-src="./xiaolan.jpg" video-title="视频3" describe="这是视频3的描述"/>
+                <media-browser img-src="./xiaolan.jpg" video-title="视频4" describe="这是视频4的描述"/>
             </div>
             <div class="col-md-1 advertise">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
             </div>
         </div>
         <VideoModel/>
@@ -60,8 +55,9 @@
 
 <style scoped>
     .row .advertise img{
-        /*background-color: coral;*/
-        /*height: 2000px;*/
         width: 100%;
+    }
+    .innerContent{
+        background-color: wheat;
     }
 </style>
