@@ -8,7 +8,11 @@
             </ul>
         </div>
         <div class="row">
-            <div class="col-md-1 advertise">广告</div>
+            <div class="col-md-1 advertise">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+            </div>
             <div class="col-md-10">
                 <carousel/>
                 <media-browser/>
@@ -21,7 +25,11 @@
                 <media-browser/>
                 <media-browser/>
             </div>
-            <div class="col-md-1 advertise">广告</div>
+            <div class="col-md-1 advertise">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../../public/advertise.png" alt="../../public/xiaolan.jpg">
+            </div>
         </div>
         <VideoModel/>
     </div>
@@ -51,8 +59,9 @@
 </script>
 
 <style scoped>
-    .row .advertise{
-        background-color: coral;
-        height: 2000px;
+    .row .advertise img{
+        /*background-color: coral;*/
+        /*height: 2000px;*/
+        width: 100%;
     }
 </style>
