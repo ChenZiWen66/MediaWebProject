@@ -41,12 +41,14 @@
                 <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
             </div>
         </div>
+        <video-modal/>
     </div>
 </template>
 
 <script>
     import Carousel from "../components/Carousel";
     import MediaBrowser from "../components/MediaBrowser";
+    import VideoModal from "../components/VideoModal";
 
     export default {
         name: "MediaPage",
@@ -56,7 +58,7 @@
             }
         },
         components: {
-            Carousel, MediaBrowser
+            Carousel, MediaBrowser,VideoModal
         },
         methods: {
             setsheet(sheet) {

@@ -1,7 +1,8 @@
 <template>
     <div class="media col-md-12 fff">
         <div class="media-left media-middle">
-            <img id="mediaBrowserImg" class="media-object img-circle" :src="imgSrc" :alt="videoTitle" @click="touchImg">
+            <img id="mediaBrowserImg" class="media-object img-circle" :src="imgSrc" :alt="videoTitle"
+                 data-toggle="modal" data-target="#videomodal" @click="touchImg">
         </div>
         <div class="media-body">
             <h4 class="media-heading">{{videoTitle}}</h4>
@@ -21,12 +22,14 @@
             //视频描述
             describe: '',
             // 视频路径
-            videoUrl:''
+            videoUrl: ''
         },
-        methods:{
-            touchImg(){
-                let _this=this;
-                console.log("点击了图片"+_this.videoTitle)
+        methods: {
+            touchImg() {
+                let _this = this;
+                console.log("点击了图片" + _this.videoTitle);
+                console.log("弹出模态框");
+                $("#videomodal").on("shown.bs.modal");
             }
         }
     }
