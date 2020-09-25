@@ -29,6 +29,8 @@
                 let _this = this;
                 console.log("点击了图片" + _this.videoTitle);
                 console.log("弹出模态框");
+                // $("#videomodal .modal-body").html("<AliPlayer videoUrl='" +
+                //     "https://czwhub.oss-cn-shanghai.aliyuncs.com/%E5%85%89%E8%80%80%E5%96%9D%E9%85%92.mp4' coverUrl='https://czwhub.oss-cn-shanghai.aliyuncs.com/xiaolan.jpg'/>");
                 $("#videomodal").on("shown.bs.modal");
             }
         }
