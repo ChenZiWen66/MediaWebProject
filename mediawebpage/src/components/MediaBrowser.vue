@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import {globalBus} from "./GlobalBus";
+
     export default {
         name: "MediaBrowser",
         props: {
@@ -26,11 +28,16 @@
         },
         methods: {
             touchImg() {
+                /**
+                 * 点击图片事件：
+                 * 1.向阿里播放器组件发送信息：[视频标题、视频播放地址]，接收到信息后阿里播放器调用修改方法
+                 * 2.弹出模态框
+                 */
                 let _this = this;
                 console.log("点击了图片" + _this.videoTitle);
+                globalBus.$emit("videoInfo_fromMediaBrowser",[_this.videoTitle,_this.videoUrl]);
+                console.log("修改播放内容为",_this.videoUrl);
                 console.log("弹出模态框");
-                // $("#videomodal .modal-body").html("<AliPlayer videoUrl='" +
-                //     "https://czwhub.oss-cn-shanghai.aliyuncs.com/%E5%85%89%E8%80%80%E5%96%9D%E9%85%92.mp4' coverUrl='https://czwhub.oss-cn-shanghai.aliyuncs.com/xiaolan.jpg'/>");
                 $("#videomodal").on("shown.bs.modal");
             }
         }

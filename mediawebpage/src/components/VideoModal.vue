@@ -8,6 +8,8 @@
                 </div>
                 <div class="modal-body">
                     <p>One fine body&hellip;</p>
+<!--                    <AliPlayer videoUrl="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E5%85%89%E8%80%80%E5%96%9D%E9%85%92.mp4"/>-->
+                    <AliPlayer/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -19,7 +21,12 @@
 </template>
 
 <script>
+    import AliPlayer from "./AliPlayer";
+
     export default {
-        name: "videoModal"
+        name: "videoModal",
+        components:{
+            AliPlayer
+        }
     }
 </script>
