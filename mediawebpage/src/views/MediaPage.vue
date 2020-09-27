@@ -12,33 +12,23 @@
         </div>
         <div class="row">
             <div class="col-md-1 advertise">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="广告">
+                <img src="../assets/advertise.png" alt="广告">
+                <img src="../assets/advertise.png" alt="广告">
             </div>
             <div class="col-md-10 innerContent">
                 <carousel/>
-                <media-browser img-src="https://czwhub.oss-cn-shanghai.aliyuncs.com/xiaolan.jpg"
-                               video-title="光耀喝酒"
-                               describe="光耀喝酒的视频"
-                               video-url="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E5%85%89%E8%80%80%E5%96%9D%E9%85%92.mp4"/>
-                <media-browser img-src="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E6%B8%B8%E6%88%8F%E7%8E%8B%E5%B0%81%E9%9D%A21.jpg"
-                               video-title="游戏王12"
-                               describe="游戏王12集的描述"
-                               video-url="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E6%B8%B8%E6%88%8F%E7%8E%8BSEVENS%E7%AC%AC%E5%8D%81%E4%BA%8C%E8%AF%9D.mp4"/>
-                <media-browser img-src="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E6%B8%B8%E6%88%8F%E7%8E%8B%E5%B0%81%E9%9D%A22.jpg"
-                               video-title="游戏王14"
-                               describe="游戏王14集的描述"
-                               video-url="https://czwhub.oss-cn-shanghai.aliyuncs.com/SEVENS%20014..mp4"/>
-                <media-browser img-src="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E6%AD%A6%E6%B1%89%E5%B0%81%E9%9D%A2.jpg"
-                               video-title="活动视频"
-                               describe="这是活动视频描述"
-                               video-url="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E6%B4%BB%E5%8A%A8%E8%A7%86%E9%A2%91.mp4"/>
+                <div v-for="videoInfo in videoInfoList">
+                    <media-browser :img-src=videoInfo.imgSrc
+                                   :video-title=videoInfo.videoTitle
+                                   :describe=videoInfo.describe
+                                   :video-url=videoInfo.videoUrl />
+                </div>
             </div>
             <div class="col-md-1 advertise">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
-                <img src="../assets/advertise.png" alt="../../public/xiaolan.jpg">
+                <img src="../assets/advertise.png" alt="广告">
+                <img src="../assets/advertise.png" alt="广告">
+                <img src="../assets/advertise.png" alt="广告">
             </div>
         </div>
         <video-modal/>
@@ -54,14 +44,25 @@
         name: "MediaPage",
         data() {
             return {
-                sheet: 'picture'
+                // 导航栏标签
+                sheet: 'picture',
+                // 视频信息列表
+                videoInfoList: []
             }
         },
         components: {
-            Carousel, MediaBrowser,VideoModal
+            Carousel, MediaBrowser, VideoModal
+        },
+        mounted() {
+            let _this = this;
+            this.$http.get("videoInfo.json").then(function (response) {
+                console.log(response.data);
+                _this.videoInfoList = response.data;
+            })
         },
         methods: {
             setsheet(sheet) {
+                // 设置导航栏标签
                 this.sheet = sheet;
             }
         }
