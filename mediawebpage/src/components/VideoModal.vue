@@ -7,7 +7,6 @@
                     <h4 class="modal-title">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    <p>One fine body&hellip;</p>
 <!--                    <AliPlayer videoUrl="https://czwhub.oss-cn-shanghai.aliyuncs.com/%E5%85%89%E8%80%80%E5%96%9D%E9%85%92.mp4"/>-->
                     <AliPlayer/>
                 </div>

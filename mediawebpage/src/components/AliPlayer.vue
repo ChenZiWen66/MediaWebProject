@@ -1,6 +1,5 @@
 <template>
     <div id="aliPlayer">
-<!--        <button @click="addPlayer">aaa</button>-->
     </div>
 </template>
 
