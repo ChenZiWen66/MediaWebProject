@@ -35,9 +35,9 @@
                  */
                 let _this = this;
                 console.log("点击了图片" + _this.videoTitle);
-                globalBus.$emit("videoInfo_fromMediaBrowser",[_this.videoTitle,_this.videoUrl]);
+                globalBus.$emit("videoInfo_fromMediaBrowser",[_this.videoTitle,_this.videoUrl,_this.imgSrc]);
                 console.log("修改播放内容为",_this.videoUrl);
-                $("#videomodal").find(".modal-title").text(_this.videoTitle).on("shown.bs.modal");;
+                $("#videomodal").find(".modal-title").text(_this.videoTitle).on("shown.bs.modal");
                 console.log("修改模态框标题为",_this.videoTitle);
                 // $("#videomodal").on("shown.bs.modal");
                 console.log("弹出模态框");
