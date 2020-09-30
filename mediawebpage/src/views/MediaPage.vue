@@ -17,13 +17,22 @@
                 <img src="../assets/advertise.png" alt="广告">
             </div>
             <div class="col-md-10 innerContent">
+                <!--轮播框-->
                 <carousel/>
+                <!--上传按钮-->
                 <button type="button" class="btn btn-primary col-md-2 col-md-offset-10" data-toggle="modal" data-target="#uploadFileModal" @click="clickUploadButton">上传视频</button>
-                <div v-for="videoInfo in videoInfoList">
+                <!--视频内容-->
+                <div v-for="videoInfo in videoInfoList" class="col-md-12 videoContent">
                     <media-browser :img-src=videoInfo.imgSrc
                                    :video-title=videoInfo.videoTitle
                                    :describe=videoInfo.describe
                                    :video-url=videoInfo.videoUrl />
+                </div>
+                <!--分页栏-->
+                <div class="col-md-12" style="background-color: aqua">
+                    <p>
+                        这是要放置分页栏
+                    </p>
                 </div>
             </div>
             <div class="col-md-1 advertise">
@@ -83,5 +92,9 @@
 
     .innerContent {
         background-color: wheat;
+    }
+    .videoContent{
+        padding: 0;
+        margin-bottom: 2px;
     }
 </style>
