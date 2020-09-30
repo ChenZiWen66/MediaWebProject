@@ -47,61 +47,29 @@
     export default {
         name: "UploadFileModal",
         methods: {
+            /**
+             * 1.上传图片视频至OSS
+             * 2.将视频信息上传至数据库
+             * @returns {Promise<void>}
+             */
             async uploadFileInfo() {
-                /**
-                 * 1.上传文件
-                 * 2.在表单中添加信息
-                 * 3.访问接口http://localhost:9001/uploadfile
-                 */
                 console.log("开始上传文件");
                 let _this = this;
                 let file = document.querySelector('#InputFile').files[0];
                 let img = document.querySelector('#InputImg').files[0];
                 let videoTitle=document.querySelector('#fileTitle').value;
                 let videoDescribe=document.querySelector('#fileDescribe').value;
-                // let shardSize = 3 * 1024 * 1024;
-                // let imgShardIndex=0.0;//图片分片索引
-                // let imgTotalIndex=Math.ceil(img.size / shardSize);//图片最大分片索引
-                // let shardIndex = 0.0;//视频文件分片索引
-                // let totalIndex = Math.ceil(file.size / shardSize);//视频最大分片索引
-                // console.log("开始上传封面图片");
-                // while(imgShardIndex<imgTotalIndex){
-                //     let imgStart=imgShardIndex*shardSize;
-                //     let imgEnd = Math.min(imgStart + shardSize, img.size);
-                //     let ImgFormData = new window.FormData();
-                //     console.log("上传分片:", imgStart, "~~~~", imgEnd);
-                //     //截取分片
-                //     let ImgShard = img.slice(imgStart, imgEnd);
-                //     ImgFormData.append('file', ImgShard);
-                //     ImgFormData.append('currentIndex', shardIndex.toString());
-                //     ImgFormData.append('totalIndex', totalIndex.toString());
-                //     ImgFormData.append('fileName', img.name);
-                //     console.log("上传第", shardIndex, "个图片分片");
-                //     await _this.$http.post("http://localhost:9001/uploadfile", ImgFormData);
-                //     shardIndex++;
-                // }
-                // console.log("开始上传视频");
-                // while (shardIndex < totalIndex) {
-                //     let start = shardIndex * shardSize;
-                //     let end = Math.min(start + shardSize, file.size);
-                //     let formData = new window.FormData();
-                //     console.log("上传分片:", start, "~~~~", end);
-                //     //截取分片
-                //     let fileShard = file.slice(start, end);
-                //     formData.append('file', fileShard);
-                //     formData.append('currentIndex', shardIndex.toString());
-                //     formData.append('totalIndex', totalIndex.toString());
-                //     formData.append('fileName', file.name);
-                //     console.log("上传第", shardIndex, "个视频分片");
-                //     await _this.$http.post("http://localhost:9001/uploadfile", formData).then(function (response) {
-                //         console.log(response.data.fileUrl_OSS);
-                //     });
-                //     shardIndex++;
-                // }
                 let imgUrl =  await _this.upLoadFile2OSS(img);
                 let fileUrl = await _this.upLoadFile2OSS(file);
                 console.log("图片路径:",imgUrl,"视频路径:",fileUrl);
+                console.log("开始给数据库传递信息");
+                _this.addVideoInfo2MySQL(videoTitle,imgUrl,fileUrl,videoDescribe);
             },
+            /**
+             * 将文件上传到OSS的实现方法。
+             * @param file：图片或者视频文件
+             * @returns {Promise<string>}：文件上传至OSS对应的路径
+             */
             async upLoadFile2OSS(file){
                 let _this=this;
                 let shardSize = 3 * 1024 * 1024;
@@ -127,6 +95,15 @@
                     shardIndex++;
                 }
                 return fileOSSUrl;
+            },
+            addVideoInfo2MySQL(title,imgUrl,videoUrl,describe){
+                let _this = this;
+                let formData = new window.FormData();
+                formData.append('title',title);
+                formData.append('imgUrl',imgUrl);
+                formData.append('videoUrl',videoUrl);
+                formData.append('describe',describe);
+                _this.$http.post("http://localhost:9001/insertVideoInfo", formData)
             }
         }
     }
