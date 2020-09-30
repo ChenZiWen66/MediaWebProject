@@ -23,6 +23,10 @@
                 //    2.新建一个Aliplayer
                 //    第一步:
                 let _this = this;
+                if(_this.player){
+                    _this.Player = null;
+                    $("#aliPlayer").html('');
+                }
                 globalBus.$on("videoInfo_fromMediaBrowser", function (videoInfo) {
                     let videotitle = videoInfo[0];
                     let videourl = videoInfo[1];
@@ -41,6 +45,12 @@
                         cover:coverurl
                     });
                 });
+            },
+            deletePlayer(){
+                let _this=this;
+                console.log("删除播放器");
+                $("#aliPlayer").html('');
+                _this.player=null;
             }
         }
     }
