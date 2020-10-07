@@ -62,6 +62,7 @@
                 sheet: 'picture',
                 //当前页面数
                 currentPage: 1,
+                pageSize: 3,
                 // 视频信息列表
                 videoInfoList: []
             }
@@ -71,7 +72,7 @@
         },
         mounted() {
             let _this = this;
-            this.getVideoInfoList();
+            this.getVideoInfoList(_this.currentPage,_this.pageSize);
             globalBus.$on('videoInfoCurrentPage',function (currentPage) {
                 _this.currentPage=currentPage;
             })
@@ -81,9 +82,9 @@
              * 监听当前页面,每次当前页面数发生改变时，更新视频列表
              */
             currentPage() {
-                // let _this = this;
-                // _this.getVideoInfoList();
-                console.log("当前页面为",this.currentPage);
+                let _this = this;
+                _this.getVideoInfoList(_this.currentPage,_this.pageSize);
+                // console.log("当前页面为",this.currentPage);
             }
         },
         methods: {
@@ -95,12 +96,14 @@
                 console.log("点击了上传文件");
                 $("#uploadFileModal").on("shown.bs.modal");
             },
-            getVideoInfoList() {
+            getVideoInfoList(currentPage,pageSize) {
                 //获取视频列表
                 let _this = this;
-                this.$http.get("http://localhost:9001/showInfo").then(function (response) {
-                    console.log(response.data);
-                    _this.videoInfoList = response.data;
+                let formData = new window.FormData();
+                formData.append("currentPage",currentPage);
+                formData.append("pageSize",pageSize);
+                this.$http.post("http://localhost:9001/getInfo",formData).then(function (response) {
+                    _this.videoInfoList=response.data;
                 })
             }
         }
