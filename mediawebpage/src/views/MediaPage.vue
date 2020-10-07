@@ -60,9 +60,14 @@
             return {
                 // 导航栏标签
                 sheet: 'picture',
+                //视频数量
+                videoInfoCount: 0,
                 //当前页面数
                 currentPage: 1,
-                pageSize: 3,
+                //页面大小
+                pageSize: 5,
+                //最大页面数
+                maxPage: 1,
                 // 视频信息列表
                 videoInfoList: []
             }
@@ -70,11 +75,21 @@
         components: {
             Pagination, Carousel, MediaBrowser, VideoModal, UploadFileModal
         },
-        mounted() {
+        async mounted() {
             let _this = this;
-            this.getVideoInfoList(_this.currentPage,_this.pageSize);
-            globalBus.$on('videoInfoCurrentPage',function (currentPage) {
-                _this.currentPage=currentPage;
+            //获取信息数目
+            await _this.$http.get("http://localhost:9001/getCount").then(function (response) {
+                _this.videoInfoCount = response.data.count;
+            });
+            //初始化第一面内容
+            this.getVideoInfoList(_this.currentPage, _this.pageSize);
+            if (_this.videoInfoCount !== 0) {
+                _this.maxPage = Math.ceil(_this.videoInfoCount / _this.pageSize);
+                globalBus.$emit("PaginationMaxPage",_this.maxPage);
+            }
+            //接收并更新当前页面
+            globalBus.$on('videoInfoCurrentPage', function (currentPage) {
+                _this.currentPage = currentPage;
             })
         },
         watch: {
@@ -83,8 +98,7 @@
              */
             currentPage() {
                 let _this = this;
-                _this.getVideoInfoList(_this.currentPage,_this.pageSize);
-                // console.log("当前页面为",this.currentPage);
+                _this.getVideoInfoList(_this.currentPage, _this.pageSize);
             }
         },
         methods: {
@@ -96,14 +110,14 @@
                 console.log("点击了上传文件");
                 $("#uploadFileModal").on("shown.bs.modal");
             },
-            getVideoInfoList(currentPage,pageSize) {
+            getVideoInfoList(currentPage, pageSize) {
                 //获取视频列表
                 let _this = this;
                 let formData = new window.FormData();
-                formData.append("currentPage",currentPage);
-                formData.append("pageSize",pageSize);
-                this.$http.post("http://localhost:9001/getInfo",formData).then(function (response) {
-                    _this.videoInfoList=response.data;
+                formData.append("currentPage", currentPage);
+                formData.append("pageSize", pageSize);
+                this.$http.post("http://localhost:9001/getInfo", formData).then(function (response) {
+                    _this.videoInfoList = response.data;
                 })
             }
         }
