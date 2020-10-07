@@ -28,39 +28,37 @@
         name: "pagination",
         data() {
             return {
-                currentPage: 1,
-                pageList: [1, 2, 3, 4, 5, 6, 7],
-                pageSize: 5
+                currentPage: 1,//当前页面数
+                pageList: [1, 2, 3, 4, 5, 6, 7],//页面栏
+                pageSize: 10//页面大小
             }
         },
         methods: {
+            /**
+             * 点击分页栏数字修改当前页面数
+             * @param pageNumber
+             */
             alterPage: function (pageNumber) {
                 this.currentPage = pageNumber;
-                // alert("当前页面数为:"+this.currentPage);
-                globalBus.$emit('userInfoCurrentPage', pageNumber);
+                globalBus.$emit('videoInfoCurrentPage', pageNumber);
             },
+            /**
+             * 上一页
+             */
             prePage: function () {
                 if (this.currentPage > 1) {
                     this.currentPage = this.currentPage - 1
                 }
-                globalBus.$emit('userInfoCurrentPage', this.currentPage)
+                globalBus.$emit('videoInfoCurrentPage', this.currentPage)
             },
+            /**
+             * 下一页
+             */
             nextPage: function () {
                 if (this.currentPage < 7) {
                     this.currentPage = this.currentPage + 1
                 }
-                globalBus.$emit('userInfoCurrentPage', this.currentPage);
-            }
-        },
-        mounted: function () {
-            let _this = this;
-            globalBus.$on("userInfoPageSize", function (callback) {
-                _this.pageSize = callback;
-            })
-        },
-        watch: {
-            pageSize() {
-                this.currentPage = 1;
+                globalBus.$emit('videoInfoCurrentPage', this.currentPage);
             }
         }
     }

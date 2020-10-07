@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <ul class="nav nav-tabs col-md-12">
-                <li role="presentation" :class="{'active':sheet==='home'}" @click="setsheet('home')"><a href="#">首页</a>
+                <li role="presentation" :class="{'active':sheet==='home'}" @click="setSheet('home')"><a href="#">首页</a>
                 </li>
-                <li role="presentation" :class="{'active':sheet==='picture'}" @click="setsheet('picture')"><a href="#">图片</a>
+                <li role="presentation" :class="{'active':sheet==='picture'}" @click="setSheet('picture')"><a href="#">图片</a>
                 </li>
-                <li role="presentation" :class="{'active':sheet==='video'}" @click="setsheet('video')"><a
+                <li role="presentation" :class="{'active':sheet==='video'}" @click="setSheet('video')"><a
                         href="#">视频</a></li>
             </ul>
         </div>
@@ -20,7 +20,9 @@
                 <!--轮播框-->
                 <carousel/>
                 <!--上传按钮-->
-                <button type="button" class="btn btn-primary col-md-2 col-md-offset-10" data-toggle="modal" data-target="#uploadFileModal" @click="clickUploadButton">上传视频</button>
+                <button type="button" class="btn btn-primary col-md-2 col-md-offset-10" data-toggle="modal"
+                        data-target="#uploadFileModal" @click="clickUploadButton">上传视频
+                </button>
                 <!--视频内容-->
                 <div v-for="videoInfo in videoInfoList" class="col-md-12 videoContent">
                     <media-browser :img-src=videoInfo.imgSrc
@@ -50,6 +52,7 @@
     import VideoModal from "../components/VideoModal";
     import UploadFileModal from "../components/UploadFileModal";
     import Pagination from "../components/Pagination";
+    import {globalBus} from "../components/GlobalBus";
 
     export default {
         name: "MediaPage",
@@ -57,29 +60,48 @@
             return {
                 // 导航栏标签
                 sheet: 'picture',
+                //当前页面数
+                currentPage: 1,
                 // 视频信息列表
                 videoInfoList: []
             }
         },
         components: {
-            Pagination,
-            Carousel, MediaBrowser, VideoModal,UploadFileModal
+            Pagination, Carousel, MediaBrowser, VideoModal, UploadFileModal
         },
         mounted() {
             let _this = this;
-            this.$http.get("http://localhost:9001/showInfo").then(function (response) {
-                console.log(response.data);
-                _this.videoInfoList = response.data;
+            this.getVideoInfoList();
+            globalBus.$on('videoInfoCurrentPage',function (currentPage) {
+                _this.currentPage=currentPage;
             })
         },
+        watch: {
+            /**
+             * 监听当前页面,每次当前页面数发生改变时，更新视频列表
+             */
+            currentPage() {
+                // let _this = this;
+                // _this.getVideoInfoList();
+                console.log("当前页面为",this.currentPage);
+            }
+        },
         methods: {
-            setsheet(sheet) {
+            setSheet(sheet) {
                 // 设置导航栏标签
                 this.sheet = sheet;
             },
-            clickUploadButton(){
+            clickUploadButton() {
                 console.log("点击了上传文件");
                 $("#uploadFileModal").on("shown.bs.modal");
+            },
+            getVideoInfoList() {
+                //获取视频列表
+                let _this = this;
+                this.$http.get("http://localhost:9001/showInfo").then(function (response) {
+                    console.log(response.data);
+                    _this.videoInfoList = response.data;
+                })
             }
         }
     }
@@ -93,7 +115,8 @@
     .innerContent {
         background-color: wheat;
     }
-    .videoContent{
+
+    .videoContent {
         padding: 0;
         margin-bottom: 2px;
     }
