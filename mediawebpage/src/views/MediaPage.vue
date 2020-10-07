@@ -29,10 +29,8 @@
                                    :video-url=videoInfo.videoUrl />
                 </div>
                 <!--分页栏-->
-                <div class="col-md-12" style="background-color: aqua">
-                    <p>
-                        这是要放置分页栏
-                    </p>
+                <div class="col-md-12">
+                    <Pagination/>
                 </div>
             </div>
             <div class="col-md-1 advertise">
@@ -51,6 +49,7 @@
     import MediaBrowser from "../components/MediaBrowser";
     import VideoModal from "../components/VideoModal";
     import UploadFileModal from "../components/UploadFileModal";
+    import Pagination from "../components/Pagination";
 
     export default {
         name: "MediaPage",
@@ -63,6 +62,7 @@
             }
         },
         components: {
+            Pagination,
             Carousel, MediaBrowser, VideoModal,UploadFileModal
         },
         mounted() {
